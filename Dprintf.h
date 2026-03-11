@@ -1,0 +1,61 @@
+/*
+ MobaLedLib: LED library for model railways
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ Copyright (C) 2018 - 2020  Hardi Stengelin: MobaLedLib@gmx.de
+ 05.07.2025 - Baa - split code to Dprintf.cpp, added global ENABLE_DPRINTF
+
+ This library is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ This library is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public
+ License along with this library; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
+ -------------------------------------------------------------------------------------------------------------
+
+ Dprintf.h
+ ~~~~~~~~~
+
+ This module contains functions for formated printing with printf()
+
+*/
+#ifndef _Dprintf_h_
+#define _Dprintf_h_
+
+
+// Enable the Dprintf() functions.
+//   *** Attention: This should be 0 in the release version to save memory (vfprintf uses 2368 bytes)
+// #define 0/1 here to globally enable/disable debug print
+// comment out to debug based on every c/cpp sourcefile
+#define ENABLE_DPRINTF 0
+
+
+#if ENABLE_DPRINTF
+// F() makro saves dynamic memory
+   #define Dprintf(Format, ...) Dprintf_proc(F(Format), ##__VA_ARGS__)   // see: https://gcc.gnu.org/onlinedocs/cpp/Variadic-Macros.html
+   #define Dprint2(txt, arg)    {Serial.print(F(txt)); Serial.print(arg);}
+   #define Dprintln2(txt, arg)  {Serial.print(F(txt)); Serial.println(arg);}
+   #define DprintT(txt)         Serial.print(F(txt))
+   #define DprintA(arg, ...)    Serial.print(arg, ##__VA_ARGS__)
+   #define DprintlnT(txt)       Serial.println(F(txt))
+   #define DprintlnA(arg, ...)  Serial.println(arg, ##__VA_ARGS__)
+#else
+   #define Dprintf(Format, ...) {}
+   #define Dprint2(txt, arg)    {}
+   #define Dprintln2(txt, arg)  {}
+   #define DprintT(txt)         {}
+   #define DprintA(arg, ...)    {}
+   #define DprintlnT(txt)       {}
+   #define DprintlnA(arg, ...)  {}
+#endif
+
+void Dprintf_proc(const __FlashStringHelper *format, ...);
+
+#endif // _Dprintf_h_
