@@ -108,11 +108,12 @@ class CDisplay *pDisplay;
 
 unsigned long timeHeartbeat, timeDCF77, timeDCF77Signal;
 unsigned long timeButton;
-unsigned long timeMain, timeLastTask;
+unsigned long timeMain, timeLastTask, timeStatistics;
 unsigned long timeUIActive;
 
 boolean DCF77Signal, lastDCF77Signal = false;
 
+unsigned long turnaround_last = 0, turnaround_max = 0;
 
 boolean buttonUp_raw = false, buttonUp_debounced = false;
 int8_t buttonUp_cnt = 0;
@@ -179,6 +180,7 @@ void setup() {
   // timer defaults
   timeMain = 0;
   timeLastTask = 0;
+  timeStatistics = 0;
   timeButton = 0;
   timeUIActive = 0;
   timeDCF77 = 0;
@@ -186,6 +188,18 @@ void setup() {
 
 
 void loop() {
+
+  // Statistics - turnaround-time
+  turnaround_max = max( turnaround_max, millis()-turnaround_last );
+  turnaround_last = millis();
+
+  if ((millis()-timeStatistics) > 10000)  // update every 10sec
+  {
+    timeStatistics = millis();
+
+    Dprintf("turnaround_max (ms): %i\n", turnaround_max);
+    turnaround_max = 0;
+  }
 
   // Heartbeat
   // DCF77 - duplicate signal to builtin Heartbeat LED
