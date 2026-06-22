@@ -1,5 +1,3 @@
-#include <DCF77.h>
-
 /*
  * Rolladen-Control
 
@@ -36,6 +34,7 @@ needs Libraries:
 - TimeLib (Michael Margolis)
 */
 
+#include <avr/wdt.h>
 #include "RolladenCtrl.h"
 
 #include "Shade.h"
@@ -184,10 +183,16 @@ void setup() {
   timeButton = 0;
   timeUIActive = 0;
   timeDCF77 = 0;
+  timeDCF77Signal = 0;
+
+  // watchdog
+  wdt_enable(WDTO_4S);  // just in case!
 }
 
 
 void loop() {
+  // watchdog
+  wdt_reset();
 
   // Statistics - turnaround-time
   turnaround_max = max( turnaround_max, millis()-turnaround_last );
