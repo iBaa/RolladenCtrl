@@ -215,16 +215,16 @@ void loop() {
     digitalWrite(LED_BUILTIN, DCF77Signal);
     timeDCF77Signal = millis();
   }
-  
+
   // DCF77timeout - fall back to Heartbeat
   if ((millis()-timeDCF77Signal) > 5000)
-  { 
-    DCF77Signal = digitalRead(LED_BUILTIN);
+  {
+    DCF77Signal = digitalRead(LED_BUILTIN);  // ...forward to CDisplay::displayTime()
     if ((millis()-timeHeartbeat) > 1000)
     {
       timeHeartbeat = millis();
-      digitalWrite(LED_BUILTIN, !DCF77Signal);
-    }
+      digitalWrite(LED_BUILTIN, !DCF77Signal);  // invert and reflect on internal LED
+    }  // timeHeartbeat -> 1s 
   }  // timeDCF77Signal -> 5s
 
   // Mainloop - debounce inputs
