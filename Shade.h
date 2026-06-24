@@ -21,8 +21,8 @@ class CShade {
     CShade(uint8_t _pinA, uint8_t _pinB, uint8_t _durationDown);
     ~CShade();
  
-    uint8_t RequestPosition(float _req);  // pos: 0..100
-    uint8_t ReinitPosition();
+    void    RequestPosition(float _req);  // pos: 0..100
+    void    ReinitPosition();
     float   GetPosition();
     uint8_t GetActivity();
     uint8_t CancelActivity();

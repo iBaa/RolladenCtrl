@@ -19,8 +19,7 @@ typedef struct {
 extern class CShade *pShade[SHADE_CNT];
 //extern uint8_t activeShade;
 
-#include "DCF77.h"
-extern DCF77 DCF;  // global definition from RolladenCtrl.ino - used in OpAuto to determine daylight savings time
+extern boolean DCF_DaylightSavingsTime;  // used in OpAuto to determine sunrise/sunset time
 #include <Encoder.h>
 extern Encoder myEnc;
 

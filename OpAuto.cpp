@@ -5,7 +5,6 @@
 #include "Shade.h"
 
 #include "TimeLib.h"
-#include "DCF77.h"  // daylight savings time
 
 #include "Dprintf.h"
 
@@ -43,7 +42,7 @@ void getSunTiming(float *sunrise, float *sunset)
   float Mittag;
   Mittag = 12.0 +
            (15+geographischeLaenge_grad) / 15.0 +  // "local noon" - MEZ/MESZ origin at 15° East - earth rotation (24h)->360° - 1h->15° slides
-           (DCF.getSummerTime()?1.0:0.0);  // modify for Summertime/daylight savings time (+1 hour)
+           (DCF_DaylightSavingsTime?1.0:0.0);  // modify for Summertime/daylight savings time (+1 hour)
   *sunrise = min(max(Mittag - halberLichterTag_hour, 0), 24);  
   *sunset = min(max(Mittag + halberLichterTag_hour, 0), 24);
 
@@ -139,7 +138,7 @@ uint8_t COpAuto::Run(uint8_t state)
 }
 
 
-int8_t COpAuto::EvalInputs(void)
+void COpAuto::EvalInputs(void)
 {
   if(activeUiElem==8 /*position*/ && UiElem_Lvl2)
   {

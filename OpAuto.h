@@ -20,7 +20,7 @@ class COpAuto {
     COpAuto();
     ~COpAuto();
 
-    int8_t  EvalInputs(void);
+    void    EvalInputs(void);
     uint8_t Run(uint8_t state);  // return update state
     void    UpdatePrgmTiming(OPAUTOCONFIG_T opAutoConfig_T[]);
 

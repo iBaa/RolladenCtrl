@@ -52,7 +52,7 @@ needs Libraries:
 #define DCF_PIN 2  // Connection pin to DCF 77 device
 #define DCF_INTERRUPT 0  // Interrupt number associated with pin
 DCF77 DCF = DCF77(DCF_PIN,DCF_INTERRUPT, false /* flank - high/low active */);
-
+boolean DCF_DaylightSavingsTime = 0;  // used in OpAuto to determine sunrise/sunset time
 
 //#define ENCODER_OPTIMIZE_INTERRUPTS   // This optional setting causes Encoder to use more optimized code. Unfortunately it doesn't work with the DCC library
 #include <Encoder.h>                  // Rotary Encoder library from Paul Stoffregen (https://www.pjrc.com/teensy/td_libs_Encoder.html)
@@ -286,6 +286,7 @@ void loop() {
     if( DCFTime!=0 &&  // new DCF time reading
         abs(now()-DCFTime)>10 )  // difference to internal time>10sec - power up init or major adjust
     {
+      DCF_DaylightSavingsTime = DCF.getSummerTime();
       setTime(DCFTime);
       OpAuto.UpdatePrgmTiming(opAutoConfig);  // force opAuto timing re-evaluation
 

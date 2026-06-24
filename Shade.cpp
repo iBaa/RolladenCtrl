@@ -28,7 +28,7 @@ CShade::~CShade()  // destructor
 {
 }
 
-uint8_t CShade::RequestPosition(float _req)
+void CShade::RequestPosition(float _req)
 {
   if(_req<0)  // request way UP... will never be reached, keep on moving _UP_
     reqPos = -999.0;
@@ -40,7 +40,7 @@ uint8_t CShade::RequestPosition(float _req)
   reinitTime = 0.0;
 }
 
-uint8_t CShade::ReinitPosition()
+void CShade::ReinitPosition()
 {
   reinitTime = 25/100.0 /*25% default move*/ * (float)durationDown/1.03 + 2.0 /*2sec calibration*/;
 }
