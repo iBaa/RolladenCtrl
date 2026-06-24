@@ -593,27 +593,27 @@ void CDisplay::displayWindows(uint8_t bf_selected, uint8_t bf_heartbeat, uint8_t
   {
     for(c=0; c<3; c++)  // max 3 tiles per icon
     {
-      tile = &(tileWin[i][c]);  // 7 windows, up to 3 tiles each
-      raster = tile->raster[bitRead(bf_selected, i)];  // unselected/selected
+      tile = (TILE_T*) &(tileWin[i][c]);  // 7 windows, up to 3 tiles each
+      raster = (uint8_t*) tile->raster[bitRead(bf_selected, i)];  // unselected/selected
       if(tile->c != 0)  // tile available -> print
       {
         if(bitRead(bf_heartbeat, i))  // active - flash light/bold
         {
           if(bitRead(millis(), 9) /*about 500ms*/)
           {
-            raster = tile->raster[1-bitRead(bf_selected, i)];  // invert light/bold
+            raster = (uint8_t*) tile->raster[1-bitRead(bf_selected, i)];  // invert light/bold
           }          
         }
         else if(bitRead(bf_flash, i))  // flash: show/no show
         {
           if(bitRead(millis(), 9) /*about 500ms*/)
           {
-            raster = win_empty;
+            raster = (uint8_t*) win_empty;
           }          
         }
         else if(!bitRead(bf_show, i))  // no show
         {
-          raster = win_empty;  // print... but no show/clear
+          raster = (uint8_t*) win_empty;  // print... but no show/clear
         }
 
         if(raster != NULL)  // shouldn't happen... just to make sure
