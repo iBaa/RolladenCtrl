@@ -299,8 +299,8 @@ U8X8_SH1106_128X64_NONAME_HW_I2C u8x8(/* reset=*/ U8X8_PIN_NONE);
 .... xxxx
 .... .xx.
 */
-const uint8_t win1_B1[8] = { 0,0, 0,0, 254,255, 255,254 };
-const uint8_t win1_B2[8] = { 0,0, 0,0, 127,255, 255,127 };
+const uint8_t win1_B1[8] PROGMEM = { 0,0, 0,0, 254,255, 255,254 };
+const uint8_t win1_B2[8] PROGMEM = { 0,0, 0,0, 127,255, 255,127 };
 
 /*
 .... .xx.
@@ -321,8 +321,8 @@ const uint8_t win1_B2[8] = { 0,0, 0,0, 127,255, 255,127 };
 .... x..x
 .... .xx.
 */
-const uint8_t win1_L1[8] = { 0,0, 0,0, 254,1, 1,254 };
-const uint8_t win1_L2[8] = { 0,0, 0,0, 127,128, 128,127 };
+const uint8_t win1_L1[8] PROGMEM = { 0,0, 0,0, 254,1, 1,254 };
+const uint8_t win1_L2[8] PROGMEM = { 0,0, 0,0, 127,128, 128,127 };
 
 
 // Erker links
@@ -348,9 +348,9 @@ xxxx ....
 .xx. ....
 .    .
 */
-const uint8_t win2_B1[8] = { 0,0, 128,192, 224,240, 240,96 };
-const uint8_t win2_B2[16] = { 0,0, 128,192, 224,240, 248,124,   62,31, 15,7, 3,1, 0,0 };
-const uint8_t win2_B4[8] = { 6,15, 15,7, 3,1, 0,0 };
+const uint8_t win2_B1[8] PROGMEM = { 0,0, 128,192, 224,240, 240,96 };
+const uint8_t win2_B2[16] PROGMEM = { 0,0, 128,192, 224,240, 248,124,   62,31, 15,7, 3,1, 0,0 };
+const uint8_t win2_B4[8] PROGMEM = { 6,15, 15,7, 3,1, 0,0 };
 
 /*
           .    .
@@ -374,9 +374,9 @@ x..x ....
 .xx. ....
 .    .
 */
-const uint8_t win2_L1[8] = { 0,0, 128,64, 32,16, 144,96 };
-const uint8_t win2_L2[16] = { 0,0, 128,64, 32,16, 136,68,   34,17, 8,4, 2,1, 0,0 };
-const uint8_t win2_L4[8] = { 6,9, 8,4, 2,1, 0,0 };
+const uint8_t win2_L1[8] PROGMEM = { 0,0, 128,64, 32,16, 144,96 };
+const uint8_t win2_L2[16] PROGMEM = { 0,0, 128,64, 32,16, 136,68,   34,17, 8,4, 2,1, 0,0 };
+const uint8_t win2_L4[8] PROGMEM = { 6,9, 8,4, 2,1, 0,0 };
 
 
 // Erker mitte
@@ -387,7 +387,7 @@ const uint8_t win2_L4[8] = { 6,9, 8,4, 2,1, 0,0 };
 .... .xxx xxxx xxxx xxxx xxx.
 .    .    .    .    .    .
 */
-const uint8_t win3_B1[24] = { 0,0, 0,0, 6,15, 15,15,   15,15, 15,15, 15,15, 15,15,   15,15, 15,15, 15,15, 15,6 };
+const uint8_t win3_B1[24] PROGMEM = { 0,0, 0,0, 6,15, 15,15,   15,15, 15,15, 15,15, 15,15,   15,15, 15,15, 15,15, 15,6 };
 
 /*
 .... .xxx xxxx xxxx xxxx xxx.
@@ -396,7 +396,7 @@ const uint8_t win3_B1[24] = { 0,0, 0,0, 6,15, 15,15,   15,15, 15,15, 15,15, 15,1
 .... .xxx xxxx xxxx xxxx xxx.
 .    .    .    .    .    .
 */
-const uint8_t win3_L1[24] = { 0,0, 0,0, 6,9, 9,9,   9,9, 9,9, 9,9, 9,9,   9,9, 9,9, 9,9, 9,6 };
+const uint8_t win3_L1[24] PROGMEM = { 0,0, 0,0, 6,9, 9,9,   9,9, 9,9, 9,9, 9,9,   9,9, 9,9, 9,9, 9,6 };
 
 
 // Erker rechts/Terrassentuer
@@ -416,8 +416,8 @@ const uint8_t win3_L1[24] = { 0,0, 0,0, 6,9, 9,9,   9,9, 9,9, 9,9, 9,9,   9,9, 9
 .... .... .... xxxx
 .... .... .... .xx.
 */
-const uint8_t win4_B1[16] = { 0,0, 0,0, 96,240, 240,224,   192,128, 0,0, 0,0, 0,0 };
-const uint8_t win4_B3[16] = { 0,0, 0,0, 0,0, 1,3,   7,15, 31,62, 124,248, 240,96 };
+const uint8_t win4_B1[16] PROGMEM = { 0,0, 0,0, 96,240, 240,224,   192,128, 0,0, 0,0, 0,0 };
+const uint8_t win4_B3[16] PROGMEM = { 0,0, 0,0, 0,0, 1,3,   7,15, 31,62, 124,248, 240,96 };
 
 /*
 .    .    .    .
@@ -435,8 +435,8 @@ const uint8_t win4_B3[16] = { 0,0, 0,0, 0,0, 1,3,   7,15, 31,62, 124,248, 240,96
 .... .... .... x..x
 .... .... .... .xx.
 */
-const uint8_t win4_L1[16] = { 0,0, 0,0, 96,144, 16,32,   64,128, 0,0, 0,0, 0,0 };
-const uint8_t win4_L3[16] = { 0,0, 0,0, 0,0, 1,2,   4,8, 17,34, 68,136, 144,96 };
+const uint8_t win4_L1[16] PROGMEM = { 0,0, 0,0, 96,144, 16,32,   64,128, 0,0, 0,0, 0,0 };
+const uint8_t win4_L3[16] PROGMEM = { 0,0, 0,0, 0,0, 1,2,   4,8, 17,34, 68,136, 144,96 };
 
 
 // Wohnzimmer rechts
@@ -447,7 +447,7 @@ const uint8_t win4_L3[16] = { 0,0, 0,0, 0,0, 1,2,   4,8, 17,34, 68,136, 144,96 }
 .... .xxx xxxx xxx.
 .    .    .    .
 */
-const uint8_t win5_B1[16] = { 0,0, 0,0, 6,15, 15,15,   15,15, 15,15, 15,15, 15,6 };
+const uint8_t win5_B1[16] PROGMEM = { 0,0, 0,0, 6,15, 15,15,   15,15, 15,15, 15,15, 15,6 };
 
 /*
 .... .xxx xxxx xxx.
@@ -456,7 +456,7 @@ const uint8_t win5_B1[16] = { 0,0, 0,0, 6,15, 15,15,   15,15, 15,15, 15,15, 15,6
 .... .xxx xxxx xxx.
 .    .    .    .
 */
-const uint8_t win5_L1[16] = { 0,0, 0,0, 6,9, 9,9,   9,9, 9,9, 9,9, 9,6 };
+const uint8_t win5_L1[16] PROGMEM = { 0,0, 0,0, 6,9, 9,9,   9,9, 9,9, 9,9, 9,6 };
 
 
 // Kueche links
@@ -467,7 +467,7 @@ xxxx xxxx xxxx xxxx xxxx ....
 .xxx xxxx xxxx xxxx xxx. ....
 .    .    .    .    .    .
 */
-const uint8_t win6_B1[24] = { 6,15, 15,15, 15,15, 15,15,   15,15, 15,15, 15,15, 15,15,   15,15, 15,6, 0,0, 0,0};
+const uint8_t win6_B1[24] PROGMEM = { 6,15, 15,15, 15,15, 15,15,   15,15, 15,15, 15,15, 15,15,   15,15, 15,6, 0,0, 0,0};
 
 /*
 .xxx xxxx xxxx xxxx xxx. ....
@@ -476,7 +476,7 @@ x... .... .... .... ...x ....
 .xxx xxxx xxxx xxxx xxx. ....
 .    .    .    .    .    .
 */
-const uint8_t win6_L1[24] = { 6,9, 9,9, 9,9, 9,9,   9,9, 9,9, 9,9, 9,9,   9,9, 9,6, 0,0, 0,0 };
+const uint8_t win6_L1[24] PROGMEM = { 6,9, 9,9, 9,9, 9,9,   9,9, 9,9, 9,9, 9,9,   9,9, 9,6, 0,0, 0,0 };
 
 
 // Kueche rechts, Terrassentuer
@@ -487,7 +487,7 @@ xxxx xxxx xxxx xxxx
 .xxx xxxx xxxx xxx.
 .    .    .    .
 */
-const uint8_t win7_B1[16] = { 6,15, 15,15, 15,15, 15,15,   15,15, 15,15, 15,15, 15,6 };
+const uint8_t win7_B1[16] PROGMEM = { 6,15, 15,15, 15,15, 15,15,   15,15, 15,15, 15,15, 15,6 };
 
 /*
 .xxx xxxx xxxx xxx.
@@ -496,12 +496,12 @@ x... .... .... ...x
 .xxx xxxx xxxx xxx.
 .    .    .    .
 */
-const uint8_t win7_L1[16] = { 6,9, 9,9, 9,9, 9,9,   9,9, 9,9, 9,9, 9,6 };
+const uint8_t win7_L1[16] PROGMEM = { 6,9, 9,9, 9,9, 9,9,   9,9, 9,9, 9,9, 9,6 };
 
 /*
 empty dummy - 3chars wide
 */
-const uint8_t win_empty[24] = { 0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0 };
+const uint8_t win_empty[24] PROGMEM = { 0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0 };
 
 
 /*
@@ -513,52 +513,52 @@ typedef struct {
 } RASTER_T;
 */
 typedef struct {
-  const uint8_t x,y;  // display position
-  const uint8_t c;  // character length, 8bytes each char
-  const uint8_t *raster[2];  // light,bold
+  uint8_t x,y;  // display position
+  uint8_t c;  // character length, 8bytes each char
+  uint8_t *raster[2];  // light,bold
 } TILE_T;
 
-const TILE_T tileWin[7][3] =  // 7 windows, selected, 3 tiles
+const TILE_T tileWin[7][3] PROGMEM =  // 7 windows, selected, 3 tiles
 {
 // Wohnzimmer links
   {
-    { 1,6,1, {win1_L1, win1_B1} },  // light/unselected, bold/selected
-    { 1,7,1, {win1_L2, win1_B2} },
+    { 1,6,1, {(uint8_t*)win1_L1, (uint8_t*)win1_B1} },  // light/unselected, bold/selected
+    { 1,7,1, {(uint8_t*)win1_L2, (uint8_t*)win1_B2} },
     { 0,0,0, {NULL, NULL} }
   },
 // Erker links
   {
-    { 1,0,1, {win2_L1, win2_B1} },
-    { 0,1,2, {win2_L2, win2_B2} },
-    { 0,2,1, {win2_L4, win2_B4} }
+    { 1,0,1, {(uint8_t*)win2_L1, (uint8_t*)win2_B1} },
+    { 0,1,2, {(uint8_t*)win2_L2, (uint8_t*)win2_B2} },
+    { 0,2,1, {(uint8_t*)win2_L4, (uint8_t*)win2_B4} }
   },
 // Erker mitte
   {
-    { 2,0,3, {win3_L1, win3_B1} },
+    { 2,0,3, {(uint8_t*)win3_L1, (uint8_t*)win3_B1} },
     { 0,0,0, {NULL, NULL} },
     { 0,0,0, {NULL, NULL} }
   },
 // Erker rechts/Terrassentuer
   {
-    { 5,0,2, {win4_L1, win4_B1} },
-    { 5,1,2, {win4_L3, win4_B3} },
+    { 5,0,2, {(uint8_t*)win4_L1, (uint8_t*)win4_B1} },
+    { 5,1,2, {(uint8_t*)win4_L3, (uint8_t*)win4_B3} },
     { 0,0,0, {NULL, NULL} }
   },
 // Wohnzimmer rechts
   {
-    { 7,2,2, {win5_L1, win5_B1} },
+    { 7,2,2, {(uint8_t*)win5_L1, (uint8_t*)win5_B1} },
     { 0,0,0, {NULL, NULL} },
     { 0,0,0, {NULL, NULL} }
   },
 // Kueche links
   {
-    { 11,2,3, {win6_L1, win6_B1} },
+    { 11,2,3, {(uint8_t*)win6_L1, (uint8_t*)win6_B1} },
     { 0,0,0, {NULL, NULL} },
     { 0,0,0, {NULL, NULL} }
   },
 // Kueche rechts/Terrassentuer
   {
-    { 14,2,2, {win7_L1, win7_B1} },
+    { 14,2,2, {(uint8_t*)win7_L1, (uint8_t*)win7_B1} },
     { 0,0,0, {NULL, NULL} },
     { 0,0,0, {NULL, NULL} }
   },
@@ -586,22 +586,22 @@ void CDisplay::displayWindows(uint8_t bf_selected, uint8_t bf_heartbeat, uint8_t
 {
   // display shade selection
   uint8_t i, c;
-  TILE_T *tile;
-  uint8_t *raster;
+  TILE_T tile;
+  uint8_t *raster, raster_cp[24];
 
   for(i=0; i<7; i++)  // windows
   {
     for(c=0; c<3; c++)  // max 3 tiles per icon
     {
-      tile = (TILE_T*) &(tileWin[i][c]);  // 7 windows, up to 3 tiles each
-      raster = (uint8_t*) tile->raster[bitRead(bf_selected, i)];  // unselected/selected
-      if(tile->c != 0)  // tile available -> print
+      memcpy_P(&tile, (TILE_T*) &(tileWin[i][c]), sizeof(TILE_T));  // 7 windows, up to 3 tiles each
+      raster = (uint8_t*) tile.raster[bitRead(bf_selected, i)];  // unselected/selected
+      if(tile.c!=0 && tile.c<=3)  // tile available -> print
       {
         if(bitRead(bf_heartbeat, i))  // active - flash light/bold
         {
           if(bitRead(millis(), 9) /*about 500ms*/)
           {
-            raster = (uint8_t*) tile->raster[1-bitRead(bf_selected, i)];  // invert light/bold
+            raster = (uint8_t*) tile.raster[1-bitRead(bf_selected, i)];  // invert light/bold
           }          
         }
         else if(bitRead(bf_flash, i))  // flash: show/no show
@@ -618,7 +618,7 @@ void CDisplay::displayWindows(uint8_t bf_selected, uint8_t bf_heartbeat, uint8_t
 
         if(raster != NULL)  // shouldn't happen... just to make sure
         {
-          u8x8.drawTile(tile->x,tile->y, tile->c, raster);          
+          u8x8.drawTile(tile.x,tile.y, tile.c, (uint8_t*) memcpy_P(raster_cp, raster, tile.c<<3));          
         }
       }
     }  // 3 tiles
