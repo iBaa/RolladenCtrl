@@ -503,6 +503,44 @@ empty dummy - 3chars wide
 */
 const uint8_t win_empty[24] PROGMEM = { 0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0 };
 
+/*
+sunrise 16x16
+.    .    .    .    .    .
+.    .    .    .    .    .
+.... .... ...x x... .... ....
+.... .... ...x x... .... ....
+.... ..xx .... .... xx.. ....
+.... ..xx .... .... xx.. ....
+.... .... ..xx xx.. .... ....
+.... .... .xxx xxx. .... ....
+.... xx.. xxxx xxxx ..xx ....
+xxxx xxxx xxxx xxxx xxxx xxxx
+*/
+//const uint8_t sunrise_top[16] = win_empty[];  // just use [space]s
+const uint8_t sunrise_low[24] PROGMEM = { 128,128, 128,128, 192,192, 140,140,   192,224, 240,243, 243,240, 224,192,   140,140, 192,192, 128,128, 128,128 };
+
+/*
+sunset/moon/stars
+.    .    .    .    .xxx ....
+.    .    .    .    xxx. ....
+.    .    .    .    xxx. ....
+.    .    .    .  x xxx. ....
+.    .    .    .  x xxxx ....
+.    .    .    .    xxxx ....
+.    .    .    .    xxxx xx..
+.    .    .    .    .xxx xxxx
+
+.... .xx. .... .... ...x xxx.
+.... .xx. .... .... .... ....
+xx.. .... ..xx .... .x.. .x..
+xx.. .... ..xx .... .... xxx.
+.... xxxx .... .... ..x. .x..
+...x xxxx x... .... .... ....
+..xx .... xx.. xx.. .... ....
+xxxx xxxx xxxx xxxx xxxx xxxx
+*/
+const uint8_t sunset_top[24] PROGMEM = { 0,0, 0,0, 0,0, 0,0,   0,0, 0,0, 0,0, 0,24,   126,255, 255,241, 192,192, 128,128 };
+const uint8_t sunset_low[24] PROGMEM = { 140,140, 192,224, 176,179, 179,176,   224,192, 140,140, 192,192, 128,128,   128,132, 144,129, 137,157, 137,128 };
 
 /*
 typedef struct {
@@ -670,6 +708,18 @@ void CDisplay::displayState(uint8_t state, bool buttonUp, bool buttonDown)
 }
 
 
+inline uint8_t* raster24_getAndInvert(const uint8_t* src, uint8_t invert)
+{
+  uint8_t i;
+  static uint8_t dest[24];
+
+  memcpy_P(dest, src, 24);
+  if(invert)
+    for(i=0;i<24;i++) dest[i] = ~dest[i];
+
+  return(dest);
+}
+
 void CDisplay::displayProgram(uint8_t prgm, uint8_t actUI, uint8_t actUI_flash)
 {
   char str[16];
@@ -711,7 +761,8 @@ void CDisplay::displayProgram(uint8_t prgm, uint8_t actUI, uint8_t actUI_flash)
 
 
   // time
-  u8x8.setInverseFont(actUI==10 && !(actUI_flash && bitRead(millis(), 9) /*about 500ms*/));
+  uint8_t b_inverse = actUI==10 && !(actUI_flash && bitRead(millis(), 9) /*about 500ms*/);
+  u8x8.setInverseFont(b_inverse);
   if( opAutoConfig[prgm].fix )
   {
     snprintf(str, 16, "%2u%c%02u", opAutoConfig[prgm].hour, ':', opAutoConfig[prgm].minute);
@@ -720,22 +771,33 @@ void CDisplay::displayProgram(uint8_t prgm, uint8_t actUI, uint8_t actUI_flash)
   }
   else
   {
-    u8x8.setFont(u8x8_font_open_iconic_weather_2x2);
-    u8x8.drawGlyph(6,5, opAutoConfig[prgm].sunrise?69 /*sun*/:66 /*moon*/);
-
     u8x8.setFont(u8x8_font_artossans8_n);
-    u8x8.drawString(6,7, "  \n");  // clear possible remainder from first digit hour
+    u8x8.drawString(6,5, "    ");  // clear possible remainder from first digit hour
 
-    if(opAutoConfig[prgm].minuteOffset==0)
+    if(opAutoConfig[prgm].sunrise)
     {
-      snprintf(str, 16, " :00");
+      u8x8.drawString(6,6, "    ");  // clear top line
+      u8x8.drawTile(6,7, 3, (uint8_t*) raster24_getAndInvert(sunrise_low, b_inverse));
+      u8x8.drawString(9,7, " ");
     }
     else
     {
-      snprintf(str, 16, " %+02i", opAutoConfig[prgm].minuteOffset);
+      u8x8.drawTile(6,6, 3, (uint8_t*) raster24_getAndInvert(sunset_top, b_inverse));  // moon
+      u8x8.drawString(9,6, " ");
+      u8x8.drawTile(6,7, 3, (uint8_t*) raster24_getAndInvert(sunset_low, b_inverse));  // sun/stars
+      u8x8.drawString(9,7, " ");
+    }
+
+    if(opAutoConfig[prgm].minuteOffset==0)
+    {
+      snprintf(str, 16, ":00");
+    }
+    else
+    {
+      snprintf(str, 16, "%+02i", opAutoConfig[prgm].minuteOffset);
     }
     u8x8.setFont(u8x8_font_courB18_2x3_n);
-    u8x8.drawString(8,5, str);
+    u8x8.drawString(10,5, str);
   }
 
   u8x8.setInverseFont(false);
