@@ -419,19 +419,21 @@ void debounce(boolean in, boolean *out, int8_t *cnt, int8_t maxCnt)
 {
   if (in)  // pressed
   {
-    *cnt = min((*cnt)++, maxCnt);
-    if( *cnt==maxCnt )
+    if( *cnt>=maxCnt )
     {
       *out = true;
     }
+    else
+      ++(*cnt);
   }
   else  // released
   {
-    *cnt = max((*cnt)--, 0);
-    if( *cnt==0 )
+    if( *cnt<=0 )
     {
       *out = false;
     }
+    else
+      --(*cnt);
   }
 }
 
@@ -439,11 +441,12 @@ void delayOn(boolean in, boolean *out, int8_t *cnt, int8_t maxCnt)
 {
   if (in)  // pressed
   {
-    *cnt = min((*cnt)++, maxCnt);
-    if( *cnt==maxCnt )
+    if( *cnt>=maxCnt )
     {
       *out = true;
     }
+    else
+      ++(*cnt);
   }
   else  // released - direct off
   {
