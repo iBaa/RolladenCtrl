@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <U8x8lib.h>
+#include <Wire.h>
 
 #include "RolladenCtrl.h"
 #include "Display.h"
@@ -606,6 +607,7 @@ const TILE_T tileWin[7][3] PROGMEM =  // 7 windows, selected, 3 tiles
 
 CDisplay::CDisplay(void)
 {
+  Wire.setWireTimeout(25000, true);  // 25ms; TWI hardware bei timeout zurücksetzen
   u8x8.begin();
   u8x8.setPowerSave(0);
 
