@@ -33,20 +33,31 @@ void getSunTiming(float *sunrise, float *sunset)
   //n = dayOfYear(5,7);  // debug
 
   float deklination_rad;
-  deklination_rad = -23.44 * 2*PI/360 * cos(2*PI/360 * (n+10)); 
+  deklination_rad = -23.44 * 2*PI/360 * cos((2*PI/360) * (360.0/365.25) * (n+10)); 
   
   float halberLichterTag_hour;
   halberLichterTag_hour = acos(-tan(geographischeBreite_grad * (2*PI/360))*tan(deklination_rad)) / (2*PI/24);
 
+  // Korrektur "mittag" wg Elliptizität der Erdbahn und Neigung der Erdachse
+  // https://en.wikipedia.org/wiki/Equation_of_time
+  // https://www.celestialprogramming.com/snippets/equationoftime-simple.html
+  // https://homepage.villanova.edu/alan.whitman/eqoftime.pdf
+  float d_rad, zeitGleichung_min;
+  d_rad = (2*PI/360) * (360.0/365.25) * n;
+  zeitGleichung_min = -7.655 * sin(d_rad) + 9.873 * sin(2*d_rad + 3.588);
+
   // https://de.wikipedia.org/wiki/Zeitzone
   float Mittag;
-  Mittag = 12.0 +
-           (15+geographischeLaenge_grad) / 15.0 +  // "local noon" - MEZ/MESZ origin at 15° East - earth rotation (24h)->360° - 1h->15° slides
-           (DCF_DaylightSavingsTime?1.0:0.0);  // modify for Summertime/daylight savings time (+1 hour)
+  Mittag = 12.0
+           - zeitGleichung_min/60.0  // Korrektur "mittag"
+           - (24.0/360.0) * (geographischeLaenge_grad % 15)  // "local noon" - MEZ/MESZ origin at 15° East - earth rotation 24h->360° - 1h->15° slices
+           + zeitZone_hour  // Zeitzone (MEZ=UTC+1)
+           + (DCF_DaylightSavingsTime?1.0:0.0);  // modify for Summertime/daylight savings time (+1 hour)
   *sunrise = min(max(Mittag - halberLichterTag_hour, 0), 24);  
   *sunset = min(max(Mittag + halberLichterTag_hour, 0), 24);
 
   Dprintln2("mittag:", Mittag);
+  Dprintln2("zeitGleichung_min:", zeitGleichung_min);
   Dprintln2("halberLichterTag:", halberLichterTag_hour);
   Dprintln2("sunrise:", *sunrise);
   Dprintln2("sunset:", *sunset);
