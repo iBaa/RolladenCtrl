@@ -28,15 +28,20 @@ void getSunTiming(float *sunrise, float *sunset)
 {
   // Sonnenauf-/untergang
   // https://de.wikipedia.org/wiki/Lichter_Tag
+  // https://gml.noaa.gov/grad/solcalc/solareqns.PDF
   uint16_t n;  // day of year
   n = dayOfYear(day(), month());
   //n = dayOfYear(5,7);  // debug
 
-  float deklination_rad;
-  deklination_rad = -23.44 * 2*PI/360 * cos((2*PI/360) * (360.0/365.25) * (n+10)); 
-  
+  const float deklination_rad = -23.44 * 2*PI/360 * cos((2*PI/360) * (360.0/365.25) * (n+10));   
+  const float geografischeBreite_rad = geographischeBreite_grad * (2*PI/360.0);
+  const float sunBehindHorizont_rad = -0.833f * (2*PI/180.0);
+
   float halberLichterTag_hour;
-  halberLichterTag_hour = acos(-tan(geographischeBreite_grad * (2*PI/360))*tan(deklination_rad)) / (2*PI/24);
+  halberLichterTag_hour = acos(
+                            (sin(sunBehindHorizont_rad) - sin(geografischeBreite_rad) * sin(deklination_rad)) /
+                            (cos(geografischeBreite_rad) * cos(deklination_rad))
+                          ) / (2*PI/24);
 
   // Korrektur "mittag" wg Elliptizität der Erdbahn und Neigung der Erdachse
   // https://en.wikipedia.org/wiki/Equation_of_time
@@ -50,7 +55,7 @@ void getSunTiming(float *sunrise, float *sunset)
   float Mittag;
   Mittag = 12.0
            - zeitGleichung_min/60.0  // Korrektur "mittag"
-           - (24.0/360.0) * (geographischeLaenge_grad % 15)  // "local noon" - MEZ/MESZ origin at 15° East - earth rotation 24h->360° - 1h->15° slices
+           - geographischeLaenge_grad * (24.0/360.0)  // "local noon" - MEZ/MESZ origin at 15° East - earth rotation 24h->360° - 1h->15° slices
            + zeitZone_hour  // Zeitzone (MEZ=UTC+1)
            + (DCF_DaylightSavingsTime?1.0:0.0);  // modify for Summertime/daylight savings time (+1 hour)
   *sunrise = min(max(Mittag - halberLichterTag_hour, 0), 24);  

@@ -1,7 +1,7 @@
 
-#define geographischeBreite_grad  ( 50)  // Mainz - 50° nördlicher Breite
-#define geographischeLaenge_grad  (  8)  // Mainz - 8° östlicher Länge - positive to the East
-#define zeitZone_hour             (  1)  // Zeitzone (MEZ=UTC+1) - positive to the East
+#define geographischeBreite_grad  ( 50.0)  // Mainz - 50° nördlicher Breite
+#define geographischeLaenge_grad  (  8.4)  // Mainz - 8° östlicher Länge - positive to the East
+#define zeitZone_hour             (  1  )  // Zeitzone (MEZ=UTC+1) - positive to the East
 
 #define OPAUTO_PRGMCNT  4
 
